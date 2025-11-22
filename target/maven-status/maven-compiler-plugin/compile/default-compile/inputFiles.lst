@@ -8,6 +8,7 @@
 /Users/joaquinmilla/microcursos/backend/src/main/java/cl/ipla/microcursos/backend/controller/CursoController.java
 /Users/joaquinmilla/microcursos/backend/src/main/java/cl/ipla/microcursos/backend/controller/InscripcionController.java
 /Users/joaquinmilla/microcursos/backend/src/main/java/cl/ipla/microcursos/backend/controller/ModuloController.java
+/Users/joaquinmilla/microcursos/backend/src/main/java/cl/ipla/microcursos/backend/controller/RootController.java
 /Users/joaquinmilla/microcursos/backend/src/main/java/cl/ipla/microcursos/backend/dto/ActualizarProgresoRequest.java
 /Users/joaquinmilla/microcursos/backend/src/main/java/cl/ipla/microcursos/backend/dto/CursoDTO.java
 /Users/joaquinmilla/microcursos/backend/src/main/java/cl/ipla/microcursos/backend/dto/CursoDetalleDTO.java

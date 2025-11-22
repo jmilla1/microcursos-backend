@@ -34,7 +34,8 @@ public class SecurityConfig {
                         // Auth pública
                         .requestMatchers("/auth/**").permitAll()
 
-                        // (Opcional) si quisieras catálogo público:
+                        // (Opcional) Endpoint público para health check
+                        .requestMatchers("/health").permitAll()
                         // .requestMatchers(HttpMethod.GET, "/api/cursos/**").permitAll()
 
                         // El resto de /api/** requiere estar logueado
