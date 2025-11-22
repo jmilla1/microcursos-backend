@@ -1,26 +1,24 @@
 # Etapa 1: construir el JAR con Maven
-FROM eclipse-temurin:21-jdk-alpine AS build
-
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Copiamos todo el proyecto
-COPY . .
+# Copiamos pom y código
+COPY pom.xml .
+COPY src ./src
 
-# Construimos el JAR (sin tests para que sea más rápido)
-RUN ./mvnw -B -DskipTests clean package
+# Compilamos sin tests
+RUN mvn -q -DskipTests package
 
-# Etapa 2: imagen ligera solo con el JAR
-FROM eclipse-temurin:21-jre-alpine
-
+# Etapa 2: imagen liviana solo con el JAR
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# Copiamos el JAR generado en la etapa de build
+# Copiamos el JAR generado en la etapa anterior
 COPY --from=build /app/target/backend-0.0.1-SNAPSHOT.jar app.jar
 
-# Render asigna el puerto por la variable PORT
+# Render expone un PORT; Spring Boot debe escuchar en ese puerto
 ENV PORT=8080
-
 EXPOSE 8080
 
-# Spring Boot leerá server.port=${PORT:8080} de application.yml
-ENTRYPOINT ["java","-jar","app.jar"]
+# Usamos el valor de $PORT que Render setea
+ENTRYPOINT ["sh", "-c", "java -Dserver.port=$PORT -jar /app/app.jar"]
