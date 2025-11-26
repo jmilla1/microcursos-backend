@@ -5,7 +5,6 @@ import cl.ipla.microcursos.backend.mapper.CursoMapper;
 import cl.ipla.microcursos.backend.model.Modulo;
 import cl.ipla.microcursos.backend.service.ModuloService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
