@@ -45,7 +45,7 @@ public class CursoController {
     }
 
     // Crear nuevo curso (solo ADMIN)
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public ResponseEntity<CursoDTO> crear(
             @RequestBody CursoRequestDTO cursoRequest,
@@ -66,7 +66,7 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<CursoDTO> actualizar(
             @PathVariable Long id,
@@ -96,7 +96,7 @@ public class CursoController {
     }
 
     // Crear un módulo dentro de un curso (solo ADMIN)
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/{cursoId}/modulos")
     public ResponseEntity<ModuloDTO> crearModulo(
             @PathVariable Long cursoId,
