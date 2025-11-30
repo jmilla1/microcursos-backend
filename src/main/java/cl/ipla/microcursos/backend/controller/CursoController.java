@@ -72,15 +72,15 @@ public class CursoController {
             @PathVariable Long id,
             @RequestBody CursoRequestDTO cursoDatos) {
 
+        // Usamos el servicio para buscar y guardar cambios en el objeto existente
         Curso cursoExistente = cursoService.obtenerPorId(id);
 
-        // Actualizamos solo los campos permitidos
         cursoExistente.setTitulo(cursoDatos.getTitulo());
         cursoExistente.setDescripcion(cursoDatos.getDescripcion());
-        // No actualizamos módulos aquí por seguridad, eso tiene su propio controller
 
-        Curso actualizado = cursoService.crear(cursoExistente); // Guardamos
-        return ResponseEntity.ok(CursoMapper.toCursoDTO(actualizado));
+        Curso cursoGuardado = cursoService.crear(cursoExistente);
+
+        return ResponseEntity.ok(CursoMapper.toCursoDTO(cursoGuardado));
     }
 
     // ======== MÓDULOS POR CURSO ========
