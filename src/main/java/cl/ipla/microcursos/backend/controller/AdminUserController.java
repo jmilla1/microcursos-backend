@@ -20,8 +20,8 @@ import java.util.List;
 public class AdminUserController {
 
     private final UsuarioRepository usuarioRepository;
-    private final RolRepository rolRepository; // Necesario para buscar roles
-    private final PasswordEncoder passwordEncoder; // Necesario para encriptar pass
+    private final RolRepository rolRepository;
+    private final PasswordEncoder passwordEncoder;
 
     // 1. Listar todos los usuarios
     @GetMapping
@@ -38,17 +38,15 @@ public class AdminUserController {
             return ResponseEntity.badRequest().body("El email ya existe");
         }
 
-        // Encriptar contraseña
-        usuario.setPasswordHash(passwordEncoder.encode(usuario.getPasswordHash()));
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
-        // Asignar Rol (Si viene nulo, por defecto ESTUDIANTE)
         if (usuario.getRol() != null && usuario.getRol().getId() != null) {
             Rol rolDb = rolRepository.findById(usuario.getRol().getId())
                     .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
             usuario.setRol(rolDb);
         } else {
-            // Asignar rol por defecto si es necesario, o lanzar error
-            Rol rolEstudiante = rolRepository.findById(2L).orElse(null); // Asumiendo ID 2 es estudiante
+            // Asignar rol ESTUDIANTE (ID 2) por defecto
+            Rol rolEstudiante = rolRepository.findById(2L).orElse(null);
             usuario.setRol(rolEstudiante);
         }
 
@@ -66,12 +64,10 @@ public class AdminUserController {
         usuarioExistente.setNombre(usuarioDatos.getNombre());
         usuarioExistente.setEmail(usuarioDatos.getEmail());
 
-        // Actualizar contraseña solo si viene informada (no vacía)
-        if (usuarioDatos.getPasswordHash() != null && !usuarioDatos.getPasswordHash().isEmpty()) {
-            usuarioExistente.setPasswordHash(passwordEncoder.encode(usuarioDatos.getPasswordHash()));
+        if (usuarioDatos.getPassword() != null && !usuarioDatos.getPassword().isEmpty()) {
+            usuarioExistente.setPassword(passwordEncoder.encode(usuarioDatos.getPassword()));
         }
 
-        // Actualizar Rol
         if (usuarioDatos.getRol() != null && usuarioDatos.getRol().getId() != null) {
             Rol rolDb = rolRepository.findById(usuarioDatos.getRol().getId())
                     .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
