@@ -80,7 +80,7 @@ public class CursoController {
         cursoExistente.setTitulo(cursoDatos.getTitulo());
         cursoExistente.setDescripcion(cursoDatos.getDescripcion());
 
-        Curso cursoGuardado = cursoService.crear(cursoExistente);
+        Curso cursoGuardado = cursoService.actualizar(id, cursoDatos);
 
         System.out.println("Usuario: " + authentication.getName());
         System.out.println("Roles actuales: " + authentication.getAuthorities());
