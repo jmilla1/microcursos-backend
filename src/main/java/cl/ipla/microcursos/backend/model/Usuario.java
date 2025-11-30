@@ -24,7 +24,7 @@ public class Usuario {
     private String email;
 
     @Column(nullable = false, length = 255)
-    private String passwordHash; // luego la haremos con bcrypt
+    private String passwordHash;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rol_id", nullable = false)

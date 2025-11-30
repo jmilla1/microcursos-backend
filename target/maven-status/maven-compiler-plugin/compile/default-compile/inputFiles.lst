@@ -4,6 +4,7 @@
 /Users/joaquinmilla/microcursos/backend/src/main/java/cl/ipla/microcursos/backend/auth/AuthRequest.java
 /Users/joaquinmilla/microcursos/backend/src/main/java/cl/ipla/microcursos/backend/auth/AuthResponse.java
 /Users/joaquinmilla/microcursos/backend/src/main/java/cl/ipla/microcursos/backend/auth/RegisterRequest.java
+/Users/joaquinmilla/microcursos/backend/src/main/java/cl/ipla/microcursos/backend/controller/AdminUserController.java
 /Users/joaquinmilla/microcursos/backend/src/main/java/cl/ipla/microcursos/backend/controller/CertificadoController.java
 /Users/joaquinmilla/microcursos/backend/src/main/java/cl/ipla/microcursos/backend/controller/CursoController.java
 /Users/joaquinmilla/microcursos/backend/src/main/java/cl/ipla/microcursos/backend/controller/InscripcionController.java
