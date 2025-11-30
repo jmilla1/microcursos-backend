@@ -7,7 +7,6 @@ import cl.ipla.microcursos.backend.model.Curso;
 import cl.ipla.microcursos.backend.model.Modulo;
 import cl.ipla.microcursos.backend.service.CursoService;
 import cl.ipla.microcursos.backend.service.ModuloService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,8 +48,7 @@ public class CursoController {
     @PostMapping
     public ResponseEntity<CursoDTO> crear(
             @RequestBody Curso curso,
-            org.springframework.security.core.Authentication authentication
-    ) {
+            org.springframework.security.core.Authentication authentication) {
         // 🔍 DEBUG: ver qué ve Spring Security
         System.out.println("== CREAR CURSO ==");
         System.out.println("Usuario autenticado: " + authentication.getName());
@@ -61,7 +59,22 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{id}")
+    public ResponseEntity<CursoDTO> actualizar(
+            @PathVariable Long id,
+            @RequestBody Curso cursoDatos) {
 
+        Curso cursoExistente = cursoService.obtenerPorId(id);
+
+        // Actualizamos solo los campos permitidos
+        cursoExistente.setTitulo(cursoDatos.getTitulo());
+        cursoExistente.setDescripcion(cursoDatos.getDescripcion());
+        // No actualizamos módulos aquí por seguridad, eso tiene su propio controller
+
+        Curso actualizado = cursoService.crear(cursoExistente); // Guardamos
+        return ResponseEntity.ok(CursoMapper.toCursoDTO(actualizado));
+    }
 
     // ======== MÓDULOS POR CURSO ========
 
@@ -85,6 +98,7 @@ public class CursoController {
         ModuloDTO dto = CursoMapper.toModuloDTO(creado);
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
+
     // Eliminar un curso (solo ADMIN)
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ADMIN')")
     @DeleteMapping("/{id}")
