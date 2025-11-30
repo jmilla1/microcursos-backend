@@ -36,8 +36,6 @@ public class CursoServiceImpl implements CursoService {
     @Override
     @Transactional
     public Curso crear(Curso curso) {
-        // Asegurarse de que es una nueva entidad
-        // curso.setId(null);
         if (curso.getId() == null && curso.getFechaCreacion() == null) {
             curso.setFechaCreacion(LocalDateTime.now());
         }
@@ -46,10 +44,14 @@ public class CursoServiceImpl implements CursoService {
             curso.setFechaCreacion(LocalDateTime.now());
         }
 
+        // Lógica para módulos
         if (curso.getModulos() != null) {
             for (Modulo modulo : curso.getModulos()) {
-                modulo.setId(null);
-                modulo.setCurso(curso); // establecer la relación inversa
+                // Solo si el módulo es nuevo, le quitamos el ID. Si ya existe, lo mantenemos.
+                if (modulo.getId() == null) {
+                    modulo.setId(null);
+                }
+                modulo.setCurso(curso);
             }
         }
 
