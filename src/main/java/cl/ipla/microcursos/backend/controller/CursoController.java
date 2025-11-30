@@ -66,7 +66,7 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<CursoDTO> actualizar(
             @PathVariable Long id,
