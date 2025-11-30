@@ -1,6 +1,7 @@
 package cl.ipla.microcursos.backend.controller;
 
 import cl.ipla.microcursos.backend.dto.CursoDTO;
+import cl.ipla.microcursos.backend.dto.CursoRequestDTO;
 import cl.ipla.microcursos.backend.dto.ModuloDTO;
 import cl.ipla.microcursos.backend.mapper.CursoMapper;
 import cl.ipla.microcursos.backend.model.Curso;
@@ -47,12 +48,18 @@ public class CursoController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<CursoDTO> crear(
-            @RequestBody Curso curso,
+            @RequestBody CursoRequestDTO cursoRequest,
             org.springframework.security.core.Authentication authentication) {
         // 🔍 DEBUG: ver qué ve Spring Security
         System.out.println("== CREAR CURSO ==");
         System.out.println("Usuario autenticado: " + authentication.getName());
         System.out.println("Authorities: " + authentication.getAuthorities());
+
+        Curso curso = Curso.builder()
+                .titulo(cursoRequest.getTitulo())
+                .descripcion(cursoRequest.getDescripcion())
+                .fechaCreacion(java.time.LocalDateTime.now())
+                .build();
 
         Curso creado = cursoService.crear(curso);
         CursoDTO dto = CursoMapper.toCursoDTO(creado);
@@ -63,7 +70,7 @@ public class CursoController {
     @PutMapping("/{id}")
     public ResponseEntity<CursoDTO> actualizar(
             @PathVariable Long id,
-            @RequestBody Curso cursoDatos) {
+            @RequestBody CursoRequestDTO cursoDatos) {
 
         Curso cursoExistente = cursoService.obtenerPorId(id);
 

@@ -30,6 +30,7 @@ cl/ipla/microcursos/backend/model/Resultado$ResultadoBuilder.class
 cl/ipla/microcursos/backend/service/ModuloServiceImpl.class
 cl/ipla/microcursos/backend/model/EventoHistorial.class
 cl/ipla/microcursos/backend/service/ModuloService.class
+cl/ipla/microcursos/backend/dto/CursoRequestDTO.class
 cl/ipla/microcursos/backend/dto/ErrorDTO.class
 cl/ipla/microcursos/backend/controller/ModuloController.class
 cl/ipla/microcursos/backend/security/CustomUserDetailsService.class
@@ -58,6 +59,7 @@ cl/ipla/microcursos/backend/api/DebugController.class
 cl/ipla/microcursos/backend/repository/RolRepository.class
 cl/ipla/microcursos/backend/security/SecurityConfig.class
 cl/ipla/microcursos/backend/mongo/model/Acta.class
+cl/ipla/microcursos/backend/dto/CursoRequestDTO$CursoRequestDTOBuilder.class
 cl/ipla/microcursos/backend/repository/EventoHistorialRepository.class
 cl/ipla/microcursos/backend/dto/CursoDetalleDTO$CursoDetalleDTOBuilder.class
 cl/ipla/microcursos/backend/auth/AuthController.class
