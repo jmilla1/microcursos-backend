@@ -66,11 +66,13 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
+    // Actualizar curso (solo ADMIN)
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<CursoDTO> actualizar(
             @PathVariable Long id,
-            @RequestBody CursoRequestDTO cursoDatos) {
+            @RequestBody CursoRequestDTO cursoDatos,
+            org.springframework.security.core.Authentication authentication) {
 
         // Usamos el servicio para buscar y guardar cambios en el objeto existente
         Curso cursoExistente = cursoService.obtenerPorId(id);
@@ -79,6 +81,9 @@ public class CursoController {
         cursoExistente.setDescripcion(cursoDatos.getDescripcion());
 
         Curso cursoGuardado = cursoService.crear(cursoExistente);
+
+        System.out.println("Usuario: " + authentication.getName());
+        System.out.println("Roles actuales: " + authentication.getAuthorities());
 
         return ResponseEntity.ok(CursoMapper.toCursoDTO(cursoGuardado));
     }
